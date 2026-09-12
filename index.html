@@ -140,10 +140,11 @@ textarea.fld{resize:vertical;min-height:62px;line-height:1.5}
        text-shadow:0 .4cqw 2.4cqw rgba(0,0,0,.45)}
 .trio-foot{position:absolute;left:0;right:0;bottom:7cqw;z-index:5;text-align:center}
 
-/* plein écran = capture prête */
-body.shot-mode{padding:0;overflow:hidden}
+/* plein écran = capture prête. On "contain" plutôt que "stretch" : un écran de
+   téléphone n'est presque jamais 9:16, donc width+height forcés déformait la carte. */
+body.shot-mode{padding:0;overflow:hidden;background:var(--night);display:flex;align-items:center;justify-content:center}
 body.shot-mode .top,body.shot-mode .tabs,body.shot-mode .side{display:none}
-body.shot-mode .card{max-width:none;width:100vw;height:100dvh;aspect-ratio:auto;border-radius:0;box-shadow:none}
+body.shot-mode .card{max-width:none;width:min(100vw,100dvh*9/16);height:min(100dvh,100vw*16/9);border-radius:0;box-shadow:none}
 .exit{display:none;position:fixed;top:calc(env(safe-area-inset-top) + 10px);right:12px;z-index:9;
       background:rgba(0,0,0,.4);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;
       padding:8px 15px;font:400 11px var(--ui);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
@@ -566,7 +567,7 @@ async function rendreFiche(){
   const im=await load(srcDe(p));
   if(im) poser(ctx,im,0,(H-H*.72)/2,W,H*.72,.44,estDetoure(p));
   voile(ctx,T);
-  tile(ctx,grainTile(Math.round(34*U)),.5,"soft-light");
+  tile(ctx,grainTile(Math.round(34*U)),.12,"soft-light");
   filigrane(ctx);
 
   const say=(says[p.n]||"").trim();
@@ -641,7 +642,7 @@ async function rendreTrio(){
   });
 
   voile(ctx,T);
-  tile(ctx,grainTile(Math.round(34*U)),.5,"soft-light");
+  tile(ctx,grainTile(Math.round(34*U)),.12,"soft-light");
   filigrane(ctx);
 
   /* les légendes passent après le voile : à l'écran elles sont en z-index 5 */
