@@ -63,7 +63,11 @@ textarea.fld{resize:vertical;min-height:62px;line-height:1.5}
 .count{font-size:11px;color:var(--ui-dim);margin-bottom:9px}
 
 /* ══════════ LA CARTE 9:16 — ton sur ton, le flacon dans la matière ══════════ */
-.stage{display:flex;justify-content:center}
+.stage{display:flex;align-items:center;justify-content:center;gap:10px}
+.navArrow{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);color:#EDE6DA;font:400 18px var(--ui);line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.navArrow:hover{background:rgba(255,255,255,.12)}
 .card{width:100%;max-width:352px;aspect-ratio:9/16;position:relative;overflow:hidden;border-radius:14px;
       container-type:inline-size;display:block;isolation:isolate;
       box-shadow:0 24px 70px rgba(0,0,0,.6);
@@ -96,7 +100,7 @@ textarea.fld{resize:vertical;min-height:62px;line-height:1.5}
   opacity:.5;filter:blur(9cqw)}
 .shot img{position:relative;width:100%;height:72%;object-fit:contain;object-position:center 44%;
           mix-blend-mode:multiply;filter:contrast(1.1) saturate(1.08)}
-.shot img[data-dt="1"],.tr .tshot img[data-dt="1"]{mix-blend-mode:normal}
+.shot img[data-dt="1"]{mix-blend-mode:normal}
 .shot img.dead{display:none}
 .fallback{display:none;position:relative;font-family:var(--display);font-size:15cqw;line-height:.92;
           opacity:.2;text-align:center;padding:0 8cqw;color:var(--lift)}
@@ -149,35 +153,16 @@ textarea.fld{resize:vertical;min-height:62px;line-height:1.5}
 .sn{margin-top:4.4cqw;font:400 2.3cqw var(--ui);letter-spacing:.3em;text-transform:uppercase;
     color:var(--or);opacity:.75}
 
-/* sélection : trois flacons dans la même matière */
-.trio{position:absolute;left:0;right:0;bottom:30cqw;top:23cqw;z-index:2;
-      display:flex;align-items:flex-end;justify-content:center;gap:1cqw;padding:0 4cqw}
-.tr{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}
-.tr .tshot{width:100%;height:33cqw;display:flex;align-items:flex-end;justify-content:center;position:relative}
-.tr .tshot::before{content:"";position:absolute;inset:-9cqw -0.5cqw -2cqw;border-radius:2cqw;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--tint) 58%,#fff),color-mix(in srgb,var(--tint) 80%,#fff));
-  opacity:.9;filter:blur(1.2cqw)}
-.tr .tshot img{position:relative;max-width:100%;max-height:100%;object-fit:contain;
-  mix-blend-mode:multiply;filter:contrast(1.1) saturate(1.08)}
-.tr .tshot img.dead{display:none}
-.tr .tx{text-align:center;margin-top:3cqw;width:100%;color:#F4EDE2;position:relative;z-index:5}
-.tr .tn{font-family:var(--display);font-size:3.4cqw;line-height:1.12}
-.tr .tb{font:400 1.8cqw var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin-top:1cqw}
-.tr .tp{font:400 2.2cqw var(--ui);letter-spacing:.08em;margin-top:1.3cqw;opacity:.82}
-.title{position:absolute;left:0;right:0;top:13cqw;z-index:5;color:#F4EDE2;
-       font-family:var(--display);font-size:7.2cqw;line-height:1.12;text-align:center;padding:0 9cqw;
-       text-shadow:0 .4cqw 2.4cqw rgba(0,0,0,.45)}
-.trio-foot{position:absolute;left:0;right:0;bottom:7cqw;z-index:5;text-align:center}
 
 /* plein écran = capture prête. On "contain" plutôt que "stretch" : un écran de
    téléphone n'est presque jamais 9:16, donc width+height forcés déformait la carte. */
 body.shot-mode{padding:0;overflow:hidden;background:var(--night);display:flex;align-items:center;justify-content:center}
-body.shot-mode .top,body.shot-mode .tabs,body.shot-mode .side{display:none}
+body.shot-mode .top,body.shot-mode .tabs,body.shot-mode .side,body.shot-mode .navArrow{display:none}
 body.shot-mode .card{max-width:none;width:min(100vw,100dvh*9/16);height:min(100dvh,100vw*16/9);border-radius:0;box-shadow:none}
 .exit{display:none;position:fixed;top:calc(env(safe-area-inset-top) + 10px);right:12px;z-index:9;
       background:rgba(0,0,0,.4);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;
-      padding:8px 15px;font:400 11px var(--ui);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
-body.shot-mode .exit{display:block}
+      width:30px;height:30px;align-items:center;justify-content:center;font:400 17px var(--ui);line-height:1;cursor:pointer}
+body.shot-mode .exit{display:flex}
 
 /* export PDF : n'imprime que la carte visible, pleine page, fonds colorés forcés */
 @media print{
@@ -191,18 +176,21 @@ body.shot-mode .exit{display:block}
 }
 </style>
 
-<button class="exit" onclick="document.body.classList.remove('shot-mode')">Fermer</button>
+<button class="exit" onclick="document.body.classList.remove('shot-mode')" aria-label="Fermer">×</button>
 
 <div class="top"><h1>LAY Studio</h1><span>LayeringScent</span></div>
 <div class="tabs" role="tablist">
   <button class="tab" role="tab" aria-selected="true" data-p="p1">Fiche</button>
-  <button class="tab" role="tab" aria-selected="false" data-p="p2">Sélection de 3</button>
 </div>
 
 <!-- ───── FICHE ───── -->
 <section class="panel" id="p1">
 <div class="layout">
-  <div class="stage"><div class="card" id="card1"></div></div>
+  <div class="stage">
+    <button class="navArrow" id="navPrev" aria-label="Parfum précédent">‹</button>
+    <div class="card" id="card1"></div>
+    <button class="navArrow" id="navNext" aria-label="Parfum suivant">›</button>
+  </div>
   <div class="side">
     <div class="ctl">
       <h2>Quelle carte</h2>
@@ -237,28 +225,6 @@ body.shot-mode .exit{display:block}
       <h2>Parfum</h2>
       <input class="fld" id="q1" placeholder="Chercher…" autocomplete="off">
       <div class="plist" id="l1"></div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ───── SÉLECTION ───── -->
-<section class="panel" id="p2" hidden>
-<div class="layout">
-  <div class="stage"><div class="card" id="card2"></div></div>
-  <div class="side">
-    <div class="ctl">
-      <h2>Titre de la sélection</h2>
-      <input class="fld" id="tt" placeholder="Trois gourmands pour l'hiver">
-      <button class="btn" onclick="full()">Plein écran — prêt à capturer</button>
-      <button class="btn g" onclick="copyCap()">Copier la légende</button>
-      <textarea class="fld" id="cap" readonly style="margin-top:9px;min-height:110px;font-size:12px"></textarea>
-    </div>
-    <div class="ctl">
-      <h2>Choisir trois parfums</h2>
-      <p class="count" id="cnt"></p>
-      <input class="fld" id="q2" placeholder="Chercher…" autocomplete="off">
-      <div class="plist" id="l2"></div>
     </div>
   </div>
 </div>
@@ -532,53 +498,6 @@ function list1(f=""){
     cur=+b.dataset.k;store.set("cur",cur);$("say1").value=says[P[cur].n]||"";majDet();draw1();});
 }
 
-/* ════════ SÉLECTION DE 3 ════════ */
-let pick=store.get("pick",[]).filter(n=>P.some(p=>p.n===n));
-
-function draw2(){
-  const c=$("card2"), sel=pick.map(n=>P.find(p=>p.n===n)).filter(Boolean);
-  c.className="card";
-  setAmbient(c,sel);
-  const title=($("tt").value||"").trim();
-  if(!sel.length){
-    c.innerHTML=`<div class="wm">LayeringScent</div>
-      <div class="trio" style="align-items:center;justify-content:center;opacity:.4">
-        <div style="font-family:var(--display);font-size:6cqw;text-align:center">Choisis trois parfums</div></div>`;
-  } else {
-    c.innerHTML=`<div class="wm">LayeringScent</div>
-      ${title?`<div class="title">${esc(title)}</div>`:""}
-      <div class="trio">${sel.map(p=>`
-        <div class="tr" style="--tint:${COL[p.n]||'#8a7a68'}"><div class="tshot">${img(p)}</div>
-          <div class="tx"><div class="tn">${esc(p.n)}</div>
-            <div class="tb">${esc(p.m)}</div>
-            <div class="tp">${price(p)}</div></div></div>`).join("")}</div>
-      <div class="veil"></div>
-      <div class="trio-foot"><div class="sn">Sélection @Layeringboy</div></div>`;
-  }
-  $("cnt").textContent=`${pick.length} / 3 choisis`;
-  $("cap").value=(title?title+"\n\n":"")+sel.map(p=>{
-    const d=p.pd?`décant 8 ml ${p.pd} € · flacon ${p.t} ${p.pf} €`:`${p.t} ${p.pf} €`;
-    return `${p.n} — ${p.m}\n${d}`;}).join("\n\n")+(sel.length?"\n\nSnap @Layeringboy":"");
-  document.querySelectorAll("#l2 .pitem").forEach(b=>b.dataset.on=pick.includes(b.dataset.n)?"1":"0");
-}
-function list2(f=""){
-  const q=f.trim().toLowerCase();
-  $("l2").innerHTML=P.filter(p=>!q||(p.n+" "+p.m).toLowerCase().includes(q))
-    .map(p=>`<button class="pitem" data-n="${esc(p.n)}" data-on="${pick.includes(p.n)?1:0}">
-      <img src="${esc(srcDe(p))}" alt="" referrerpolicy="no-referrer" loading="lazy">
-      <span><b>${esc(p.n)}</b><i>${esc(p.m)}</i></span><u>${p.pd?p.pd+" €":""}</u></button>`).join("")
-    ||'<p class="hint">Rien à ce nom.</p>';
-  $("l2").querySelectorAll(".pitem").forEach(b=>b.onclick=()=>{
-    const n=b.dataset.n;
-    if(pick.includes(n)) pick=pick.filter(x=>x!==n);
-    else if(pick.length<3) pick.push(n);
-    else { pick.shift(); pick.push(n); }   /* le 4e remplace le plus ancien */
-    store.set("pick",pick);draw2();});
-}
-function copyCap(){const t=$("cap");t.select();
-  navigator.clipboard?.writeText(t.value).catch(()=>document.execCommand("copy"));}
-
-
 /* ════════ INIT ════════ */
 function full(){document.body.classList.add("shot-mode");}
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
@@ -592,9 +511,7 @@ $("segCarte").onclick=e=>{
   const b=e.target.closest("button[data-m]"); if(!b) return;
   mode1=b.dataset.m; store.set("mode1",mode1); draw1();
 };
-$("tt").oninput=draw2;
 $("q1").oninput=e=>list1(e.target.value);
-$("q2").oninput=e=>list2(e.target.value);
 addEventListener("keydown",e=>{if(e.key==="Escape")document.body.classList.remove("shot-mode");});
 $("tgDet").onclick=()=>{
   const n=P[cur].n; if(!IMGD[n]) return;
@@ -609,5 +526,17 @@ function majDet(){
 }
 $("tgPrice").setAttribute("aria-pressed",String(showPf));
 $("say1").value=says[P[cur]?.n]||"";
-list1();majDet();draw1();list2();draw2();
+list1();majDet();draw1();
+function curList(){
+  const q=($("q1").value||"").trim().toLowerCase();
+  return P.map((p,k)=>({p,k})).filter(({p})=>!q||(p.n+" "+p.m).toLowerCase().includes(q));
+}
+function nav(dir){
+  const l=curList(); if(!l.length) return;
+  const pos=l.findIndex(({k})=>k===cur);
+  cur=l[(pos===-1?0:pos+dir+l.length)%l.length].k;
+  store.set("cur",cur);$("say1").value=says[P[cur].n]||"";majDet();draw1();list1($("q1").value);
+}
+$("navPrev").onclick=()=>nav(-1);
+$("navNext").onclick=()=>nav(1);
 </script>
