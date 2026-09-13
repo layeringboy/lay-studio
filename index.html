@@ -105,10 +105,14 @@ textarea.fld{resize:vertical;min-height:62px;line-height:1.5}
 /* voile de pied : la teinte profonde qui remonte, jamais un bloc noir */
 .veil{position:absolute;left:0;right:0;bottom:0;height:50%;z-index:3;pointer-events:none;
   background:linear-gradient(to bottom,transparent,var(--deep) 68%)}
+/* même fondu en haut qu'en bas : assied les notes sur une bande sombre */
+.veil-top{position:absolute;left:0;right:0;top:0;height:34%;z-index:3;pointer-events:none;
+  background:linear-gradient(to top,transparent,var(--deep) 72%)}
 
 /* trois notes illustrées, au-dessus du nom : ce que le client peut se représenter.
    Tout est en cqw, donc identique à toute échelle, plein écran compris. */
-.notes3{display:flex;justify-content:center;gap:4.5cqw;margin-bottom:4.5cqw}
+.notes3{position:absolute;left:0;right:0;top:14cqw;z-index:5;
+  display:flex;justify-content:center;gap:4.5cqw}
 .np{width:15cqw;text-align:center}
 .np-img{width:15cqw;height:15cqw;border-radius:50%;overflow:hidden;position:relative;
   border:.28cqw solid color-mix(in srgb,var(--or) 70%,transparent);
@@ -409,9 +413,10 @@ function draw1(){
   c.innerHTML=`
     <div class="wm">LayeringScent</div>
     <div class="shot">${img(p)}</div>
+    <div class="veil-top"></div>
     <div class="veil"></div>
+    ${notes3(p)}
     <div class="legend">
-      ${notes3(p)}
       <div class="nm${p.n.length>17?" long":""}">${esc(p.n)}</div>
       <div class="br">${esc(p.m)}</div>
       <div class="line"></div>
