@@ -34,7 +34,10 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Passe par l'abonnement Claude plutôt que par une clé API facturée.
+          # Le token se génère avec `claude setup-token`, puis se pose dans
+          # Settings → Secrets and variables → Actions sous ce nom exact.
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
           # Optional: Customize the trigger phrase (default: @claude)
           # trigger_phrase: "/claude"
