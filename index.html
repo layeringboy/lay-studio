@@ -279,12 +279,15 @@ const P=[
 {n:"Rosendo Mateu Nº 5",m:"Rosendo Mateu",t:"100 ml",pf:130,pd:null,f:"Floral",i:"https://rosendomateu.com/wp-content/uploads/2023/05/5-1.jpg"},
 {n:"Rosendo Mateu Nº 6",m:"Rosendo Mateu",t:"100 ml",pf:130,pd:null,f:"Floral",i:"https://rosendomateu.com/wp-content/uploads/2023/05/6-1.jpg"},
 {n:"La Capitale",m:"Xerjoff",t:"50 ml",pf:185,pd:40,f:"Gourmand",i:"https://www.xerjoff.com/cdn/shop/files/gallery-xerjoff-lacapitale-still.jpg?v=1747744517&width=1646"},
-{n:"This is Her",m:"Zadig&Voltaire",t:"100 ml",pf:148,pd:null,f:"Gourmand",i:"https://media.zadig-et-voltaire.com/product/H/E/HEREDT100F_BLANC_PACKSHOT_6965798ab719c.jpg"}
+{n:"This is Her",m:"Zadig&Voltaire",t:"100 ml",pf:148,pd:null,f:"Gourmand",i:"https://media.zadig-et-voltaire.com/product/H/E/HEREDT100F_BLANC_PACKSHOT_6965798ab719c.jpg"},
+{n:"African Gold",m:"Callisto Paris",t:"100 ml",pf:90,pd:null,f:"Gourmand",i:"img/callisto-african-gold.webp"},
+{n:"Oud Sable",m:"Callisto Paris",t:"100 ml",pf:100,pd:null,f:"Oud",i:"img/callisto-oud-sable.webp"},
+{n:"Iris Absolu",m:"Callisto Paris",t:"100 ml",pf:90,pd:null,f:"Floral",i:"img/callisto-iris-absolu.webp"},
 ];
 
 /* Couleur dominante de CHAQUE flacon — relevée sur le verre et le jus, pas sur la famille.
    C'est ce qui donne le ton sur ton : le fond est la couleur du parfum lui-même. */
-const COL={
+const COL={"African Gold":"#B8862B","Oud Sable":"#4A4A2E","Iris Absolu":"#24358A",
 "Oud Burgundy":"#5A1E28","Santal Blond":"#B79765","Gingembre Pétillant":"#C0913F",
 "Figue de Minuit":"#2E2438","Noble Tonka":"#6B4A2F","Un Soir de Gala":"#B08D51",
 "Vanille Alchimique":"#C4AC82","Miel d'Arabie":"#A97514","Nuit des Rois":"#3B2A44",
@@ -362,7 +365,7 @@ const NOTES3={
 
 /* Famille olfactive (source : Notion). Sert à choisir le fond de la carte portrait :
    une image par famille plutôt que par parfum — sept fonds au lieu de quarante-deux. */
-const FAMILLE={
+const FAMILLE={"African Gold":"Gourmand","Oud Sable":"Oud","Iris Absolu":"Floral",
  "Oud Burgundy":"Oud","Nuit des Rois":"Oud",
  "Santal Blond":"Boisé","Figue de Minuit":"Boisé","Coffret Terre d'Hermès":"Boisé","Royal Oak":"Boisé",
  "Instant Crush":"Ambré","Encens Suave Extrait":"Ambré","Dark Vanilla":"Ambré","Ani":"Ambré",
